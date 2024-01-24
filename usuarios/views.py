@@ -3,6 +3,13 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse(
-        "Ola, Mundo!"
-        )
+
+    context = {
+        "nome_pagina": "Início da dashboard",
+    }
+
+    return render(
+        request,
+        "index.html",
+        context
+    )
