@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load widget_tweaks %}
 
 {% block conteudo %}
 
@@ -14,17 +14,25 @@
                 Formulário para registro de novo visitante
             </h4>
 
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-row">
-                    <p class="ml-2">Aqui deveria ter um formulário</p>
-                </div>
+            <p class="mb-5 ml-l">
+                <small>
+                    O asterisco (*) indica que o campo é obrigatório
+                </small>
+            </p>
 
-                <div class="text-right">
-                    <button class="btn btn-primary" type="submit">
-                        <span class="text">Registrar visitante</span>
-                    </button>
+            <form action="" method='POST'>
+                <div class="form-row">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="form-group col-md-12">
+                            <label for="">{{field.label}} {% if field.field.required %}*{% endif %}</label>
+                            {% render_field field placeholder=field.label class="form-control" %}
+                        </div>
+                    {% endfor %}
                 </div>
             </form>
+           
         </div>
     </div>
 </div>
