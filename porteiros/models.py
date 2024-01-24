@@ -30,8 +30,8 @@ class Porteiro(models.Model):
     )
 
     class Meta:
-        verbose_name = "Porteiro",
-        verbose_name_plural = "Porteiros",
+        verbose_name = "Porteiro"
+        verbose_name_plural = "Porteiros"
         db_table = "porteiros"
 
     def __str__(self):
