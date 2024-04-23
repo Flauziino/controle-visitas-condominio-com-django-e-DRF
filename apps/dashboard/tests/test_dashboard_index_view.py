@@ -49,3 +49,45 @@ class DashboardIndexViewTest(BaseTest):
         self.assertIn('visitantes_em_visita', response.context)
         self.assertIn('visitantes_finalizado', response.context)
         self.assertIn('visitante_mes', response.context)
+
+    def test_dashboard_index_view_status_is_aguardando(self):
+        # criando visitante para teste
+        visitante = self.make_visitante()
+        # extraindo o usuario para realizar o login
+        porteiro = visitante.registrado_por
+        user = porteiro.usuario
+        self.client.force_login(user)
+
+        url = reverse('index')
+        self.client.get(url)
+        self.assertEqual(visitante.status, 'AGUARDANDO')
+
+    def test_dashboard_index_view_status_is_em_visita(self):
+        # criando visitante para teste
+        visitante = self.make_visitante()
+        # mudando o status
+        visitante.status = 'EM_VISITA'
+
+        # extraindo o usuario para realizar o login
+        porteiro = visitante.registrado_por
+        user = porteiro.usuario
+        self.client.force_login(user)
+
+        url = reverse('index')
+        self.client.get(url)
+        self.assertEqual(visitante.status, 'EM_VISITA')
+
+    def test_dashboard_index_view_status_is_finalizado(self):
+        # criando visitante para teste
+        visitante = self.make_visitante()
+        # mudando o status
+        visitante.status = 'FINALIZADO'
+
+        # extraindo o usuario para realizar o login
+        porteiro = visitante.registrado_por
+        user = porteiro.usuario
+        self.client.force_login(user)
+
+        url = reverse('index')
+        self.client.get(url)
+        self.assertEqual(visitante.status, 'FINALIZADO')

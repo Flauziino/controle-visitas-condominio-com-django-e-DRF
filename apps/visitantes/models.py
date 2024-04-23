@@ -63,7 +63,7 @@ class Visitante(models.Model):
     )
 
     morador_responsavel = models.CharField(
-        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",
+        verbose_name="Nome do morador responsável por autorizar a entrada do visitante",  # noqa: E501
         max_length=194,
         blank=True,
     )
@@ -107,7 +107,7 @@ class Visitante(models.Model):
             cpf_parte_tres = cpf[6:9]
             cpf_final = cpf[9:]
 
-            cpf_formatado = f'{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_final}'
+            cpf_formatado = f'{cpf_parte_um}.{cpf_parte_dois}.{cpf_parte_tres}-{cpf_final}'  # noqa: E501
 
             return cpf_formatado
 
