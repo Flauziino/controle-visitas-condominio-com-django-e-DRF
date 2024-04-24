@@ -3,27 +3,53 @@ from visitantes.models import Visitante
 
 
 class VisitanteForm(forms.ModelForm):
+    nome_completo = forms.CharField(
+        label="Nome Completo",
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Digite o nome completo'}),
+        error_messages={
+            "required": "O nome completo do visitante é obrigatório para o registro."  # noqa: E501
+        }
+    )
+
+    cpf = forms.CharField(
+        label="CPF",
+        widget=forms.TextInput(attrs={'placeholder': 'Digite o CPF'}),
+        error_messages={
+            "required": "O CPF do visitante é obrigatório para o registro."
+        }
+    )
+
+    data_nascimento = forms.DateField(
+        label="Data de Nascimento",
+        widget=forms.DateInput(attrs={'placeholder': 'AAAA-MM-DD'}),
+        error_messages={
+            "required": "A data de nascimento do visitante é obrigatório para o registro",  # noqa: E501
+            "invalid": "Por favor, informe um formato válido para a data de nascimento. Ex:(AAAA-MM-DD)"  # noqa: E501
+        }
+    )
+
+    numero_casa = forms.CharField(
+        label="Número da Casa",
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Digite o número da casa a ser visitada'}),
+        error_messages={
+            "required": "Por favor, informe o número da casa a ser visitada."
+        }
+    )
+
+    placa_veiculo = forms.CharField(
+        label="Placa do Veículo",
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Digite o número da placa do veículo'}),
+    )
+
     class Meta:
         model = Visitante
         fields = [
             "nome_completo", "cpf", "data_nascimento",
             "numero_casa", "placa_veiculo",
         ]
-        error_messages = {
-            "nome_completo": {
-                "required": "O nome completo do visitante é obrigatório para o registro."  # noqa: E501
-            },
-            "cpf": {
-                "required": "O CPF do visitante é obrigatório para o registro."
-            },
-            "data_nascimento": {
-                "required": "A data de nascimento do visitante é obrigatório para o registro",  # noqa: E501
-                "invalid": "Por favor, infome um formato válido para a data de nascimento. Ex:(DD/MM/AAAA)"  # noqa: E501
-            },
-            "numero_casa": {
-                "required": "Por favor, informe o número da casa a ser visitada."  # noqa: E501
-            }
-        }
 
 
 class AutorizaVisitanteForm(forms.ModelForm):

@@ -3,6 +3,7 @@ from usuarios.models import Usuario
 from visitantes.models import Visitante
 
 from django.test import TestCase
+from django.utils import timezone
 
 
 class BaseTest(TestCase):
@@ -29,6 +30,7 @@ class BaseTest(TestCase):
         return porteiro
 
     def make_visitante(self):
+        hoje = timezone.now().date()
         porteiro = self.make_porteiro()
         visitante = Visitante(
             status='AGUARDANDO',
@@ -36,6 +38,7 @@ class BaseTest(TestCase):
             cpf='11133322256',
             data_nascimento='1995-05-25',
             numero_casa='100',
+            horario_chegada=hoje,
             registrado_por=porteiro,
         )
         visitante.save()

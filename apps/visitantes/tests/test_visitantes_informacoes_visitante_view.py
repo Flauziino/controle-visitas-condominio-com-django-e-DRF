@@ -2,6 +2,7 @@ from visitantes import views
 from porteiros.tests.test_base import BaseTest
 
 from django.urls import reverse, resolve
+from django.utils import timezone
 
 
 class VisitantesInformacoesVisitanteViewTest(BaseTest):
@@ -56,3 +57,36 @@ class VisitantesInformacoesVisitanteViewTest(BaseTest):
         self.assertIn('nome_pagina', response.context)
         self.assertIn('visitante', response.context)
         self.assertIn('form', response.context)
+
+    def test_visitantes_informacoes_visitante_view_with_auth_user_and_post_method_with_valid_form_confirm_visitante(self):  # noqa: E501
+        hoje = timezone.now().date()
+
+        visitante = self.make_visitante()
+
+        autoriza_data = {
+            'morador_responsavel': 'test_autoriza'
+        }
+
+        url = reverse('informacoes_visitante', kwargs={'id': visitante.id})
+        response = self.client.post(url, data=autoriza_data, follow=True)
+
+        visitante.refresh_from_db()
+        self.assertEqual(visitante.status, 'EM_VISITA')
+        self.assertEqual(visitante.horario_autorizacao.date(), hoje)
+        self.assertIn(
+            "Entrada de visitante autorizada com sucesso",
+            response.content.decode('utf-8')
+        )
+        self.assertRedirects(response, reverse('index'))
+
+    def test_visitantes_informacoes_visitante_view_with_auth_user_and_post_method_with_invalid_form_confirm_visitante(self):  # noqa: E50
+        visitante = self.make_visitante()
+
+        autoriza_data = {
+            'morador_responsavel': ''
+        }
+
+        url = reverse('informacoes_visitante', kwargs={'id': visitante.id})
+        response = self.client.post(url, data=autoriza_data)
+
+        self.assertEqual(response.status_code, 200)
