@@ -7,6 +7,18 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">{{ nome_pagina }}</h1>
 
+        {% if form.errors %}
+                {% for field in form %}
+                    {% if field.errors %}
+                        {% for erro in field.errors %}
+                            <div class="alert alert-warning" role="alert">
+                                {{ erro }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+
         <div>
             {% if visitante.status == 'AGUARDANDO' %}
                 <a href="" class="btn btn-success btn-icon-split btn-sm" data-toggle="modal" data-target="#modal1">

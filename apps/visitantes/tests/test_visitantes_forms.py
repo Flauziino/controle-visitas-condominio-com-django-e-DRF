@@ -1,5 +1,3 @@
-from unittest import TestCase
-
 from django.urls import reverse
 
 from visitantes import forms
@@ -70,5 +68,40 @@ class VisitantesFormsTest(BaseTest):
 
         self.assertIn(
             "Por favor, informe um formato válido para a data de nascimento. Ex:(AAAA-MM-DD)",  # noqa: E501
+            response.content.decode('utf-8')
+        )
+
+    # //////////////// #
+    # FORM AutorizaVisitanteForm
+    def test_visitante_form_field_label_morador_responsavel(self):
+        form = forms.AutorizaVisitanteForm()
+        label = form['morador_responsavel'].field.label
+
+        self.assertEqual(
+            label,
+            "Morador Responsável"
+        )
+
+    def test_visitante_form_field_placeholder_morador_responsavel(self):
+        form = forms.AutorizaVisitanteForm()
+        placeholder = form['morador_responsavel'].field.widget.attrs['placeholder']  # noqa: E501
+
+        self.assertEqual(
+            placeholder,
+            'Digite o nome do morador responsável'
+        )
+
+    def test_visitante_form_field_morador_responsavel_is_required(self):
+        visitante = self.make_visitante()
+
+        autoriza_data = {
+            'morador_responsavel': ' ',
+        }
+
+        url = reverse('informacoes_visitante', kwargs={'id': visitante.id})
+        response = self.client.post(url, data=autoriza_data)
+
+        self.assertIn(
+            "Por favor, informe o nome do morador responsável.",
             response.content.decode('utf-8')
         )
