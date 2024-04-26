@@ -7,7 +7,7 @@ from django.urls import reverse, resolve
 class DashboardIndexViewTest(BaseTest):
     def test_dashboard_index_view_function_is_correct(self):
         view = resolve(reverse('index'))
-        self.assertIs(view.func, views.index)
+        self.assertIs(view.func.view_class, views.IndexView)
 
     def test_dashboard_index_view_redirect_if_not_auth_user_status_code_302(self):  # noqa : E501
         url = reverse('index')

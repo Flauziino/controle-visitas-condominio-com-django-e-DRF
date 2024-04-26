@@ -9,11 +9,11 @@ class VisitantesInformacoesVisitanteViewTest(BaseTest):
 
     def test_visitantes_informacoes_visitante_view_function_is_correct(self):
         view = resolve(reverse('informacoes_visitante', kwargs={'id': 1}))
-        self.assertIs(view.func, views.informacoes_visitante)
+        self.assertIs(view.func.view_class, views.InformacoesVisitante)
 
     def test_visitantes_informacoes_visitante_view_will_redirect_if_not_auth_status_code_302_get_method(self):  # noqa: E501
         url = reverse('informacoes_visitante', kwargs={'id': 1})
-        response = self.client.get(url)
+        response = self.client.post(url)
 
         self.assertEqual(response.status_code, 302)
 

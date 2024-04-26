@@ -42,6 +42,7 @@ class VisitanteForm(forms.ModelForm):
         label="Placa do Veículo",
         widget=forms.TextInput(
             attrs={'placeholder': 'Digite o número da placa do veículo'}),
+        required=False
     )
 
     class Meta:

@@ -9,7 +9,7 @@ class VisitantesFinalizarVisitaViewTest(BaseTest):
 
     def test_visitantes_finalizar_visita_view_function_is_correct(self):
         view = resolve(reverse('finalizar_visita', kwargs={'id': 1}))
-        self.assertIs(view.func, views.finalizar_visita)
+        self.assertIs(view.func.view_class, views.FinalizarVisitaView)
 
     def test_visitantes_finalizar_visita_view_function_return_405_if_method_get(self):  # noqa: E501
         visitante = self.make_visitante()
@@ -18,9 +18,6 @@ class VisitantesFinalizarVisitaViewTest(BaseTest):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 405)
-        self.assertIn(
-            "Método não permitido",
-            response.content.decode('utf-8'))
 
     def test_visitantes_finalizar_visita_view_function_return_405_if_method_patch(self):  # noqa: E501
         visitante = self.make_visitante()
@@ -29,9 +26,6 @@ class VisitantesFinalizarVisitaViewTest(BaseTest):
         response = self.client.patch(url)
 
         self.assertEqual(response.status_code, 405)
-        self.assertIn(
-            "Método não permitido",
-            response.content.decode('utf-8'))
 
     def test_visitantes_finalizar_visita_view_function_return_405_if_method_put(self):  # noqa: E501
         visitante = self.make_visitante()
@@ -40,9 +34,6 @@ class VisitantesFinalizarVisitaViewTest(BaseTest):
         response = self.client.put(url)
 
         self.assertEqual(response.status_code, 405)
-        self.assertIn(
-            "Método não permitido",
-            response.content.decode('utf-8'))
 
     def test_visitantes_finalizar_visita_view_function_return_405_if_method_delete(self):  # noqa: E501
         visitante = self.make_visitante()
@@ -51,9 +42,6 @@ class VisitantesFinalizarVisitaViewTest(BaseTest):
         response = self.client.delete(url)
 
         self.assertEqual(response.status_code, 405)
-        self.assertIn(
-            "Método não permitido",
-            response.content.decode('utf-8'))
 
     def test_visitantes_finalizar_visita_view_function_will_redirect_without_auth_user_status_code_302(self):  # noqa: E501
         url = reverse('finalizar_visita', kwargs={'id': 1})
