@@ -7,8 +7,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Visitante
-from .forms import VisitanteForm, AutorizaVisitanteForm
+from ..models import Visitante
+from ..forms import VisitanteForm, AutorizaVisitanteForm
 
 
 class MyBaseView(View):

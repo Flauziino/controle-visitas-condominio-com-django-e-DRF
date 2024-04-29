@@ -1,4 +1,4 @@
-from visitantes import views
+from visitantes.views import site
 from porteiros.tests.test_base import BaseTest
 
 from django.urls import reverse, resolve
@@ -9,7 +9,7 @@ class VisitantesInformacoesVisitanteViewTest(BaseTest):
 
     def test_visitantes_informacoes_visitante_view_function_is_correct(self):
         view = resolve(reverse('informacoes_visitante', kwargs={'id': 1}))
-        self.assertIs(view.func.view_class, views.InformacoesVisitante)
+        self.assertIs(view.func.view_class, site.InformacoesVisitante)
 
     def test_visitantes_informacoes_visitante_view_will_redirect_if_not_auth_status_code_302_get_method(self):  # noqa: E501
         url = reverse('informacoes_visitante', kwargs={'id': 1})

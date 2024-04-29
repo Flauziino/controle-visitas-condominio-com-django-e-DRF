@@ -1,23 +1,30 @@
 from django.urls import path
-from . import views
+from .views import site, api
 
 
 urlpatterns = [
     path(
         "registrar-visitante/",
-        views.RegistrarVisitanteView.as_view(),
+        site.RegistrarVisitanteView.as_view(),
         name="registrar_visitante"
     ),
 
     path(
         "visitantes/<int:id>",
-        views.InformacoesVisitante.as_view(),
+        site.InformacoesVisitante.as_view(),
         name="informacoes_visitante"
     ),
 
     path(
         "visitantes/<int:id>/finalizar-visita",
-        views.FinalizarVisitaView.as_view(),
+        site.FinalizarVisitaView.as_view(),
         name="finalizar_visita"
+    ),
+
+    # API #
+    path(
+        'index-api',
+        api.IndexAPIView.as_view(),
+        name='index_api'
     ),
 ]

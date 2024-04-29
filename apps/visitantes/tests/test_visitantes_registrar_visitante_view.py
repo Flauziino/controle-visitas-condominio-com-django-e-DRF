@@ -1,4 +1,4 @@
-from visitantes import views
+from visitantes.views import site
 from porteiros.tests.test_base import BaseTest
 
 from django.urls import reverse, resolve
@@ -8,7 +8,7 @@ class VisitantesRegistrarVisitanteViewTest(BaseTest):
 
     def test_visitantes_registrar_visitantes_view_function_is_correct(self):
         view = resolve(reverse('registrar_visitante'))
-        self.assertIs(view.func.view_class, views.RegistrarVisitanteView)
+        self.assertIs(view.func.view_class, site.RegistrarVisitanteView)
 
     def test_visitantes_registrar_visitantes_view_will_redirect_if_not_auth_status_code_302_get_method(self):  # noqa: E501
         url = reverse('registrar_visitante')

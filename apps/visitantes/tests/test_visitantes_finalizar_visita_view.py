@@ -1,4 +1,4 @@
-from visitantes import views
+from visitantes.views import site
 from porteiros.tests.test_base import BaseTest
 
 from django.urls import reverse, resolve
@@ -9,7 +9,7 @@ class VisitantesFinalizarVisitaViewTest(BaseTest):
 
     def test_visitantes_finalizar_visita_view_function_is_correct(self):
         view = resolve(reverse('finalizar_visita', kwargs={'id': 1}))
-        self.assertIs(view.func.view_class, views.FinalizarVisitaView)
+        self.assertIs(view.func.view_class, site.FinalizarVisitaView)
 
     def test_visitantes_finalizar_visita_view_function_return_405_if_method_get(self):  # noqa: E501
         visitante = self.make_visitante()
