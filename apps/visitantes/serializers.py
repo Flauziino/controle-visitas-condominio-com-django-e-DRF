@@ -17,7 +17,7 @@ class VisitanteSerializer(serializers.ModelSerializer):
     cpf = serializers.CharField()
     data_nascimento = serializers.DateField()
     numero_casa = serializers.CharField()
-    placa_veiculo = serializers.CharField()
+    placa_veiculo = serializers.CharField(required=False)
 
     def validate(self, attrs):
         super_validade = super().validate(attrs)
