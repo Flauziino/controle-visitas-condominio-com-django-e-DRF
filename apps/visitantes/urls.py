@@ -46,6 +46,12 @@ urlpatterns = [
         name='informacoes-visitante'
     ),
 
+    path(
+        "visitantes-api/<int:id>/finalizar-visita",
+        api.FinalizaVisitaAPIView.as_view(),
+        name="finalizar_visita_api"
+    ),
+
     # JWT #
     path(
         'api/token/',

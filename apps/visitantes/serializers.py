@@ -9,7 +9,7 @@ class VisitanteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visitante
         fields = [
-            "nome_completo", "cpf", "data_nascimento",
+            "id", "nome_completo", "cpf", "data_nascimento",
             "numero_casa", "placa_veiculo",
         ]
 
@@ -53,7 +53,7 @@ class AutorizaVisitanteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Visitante
         fields = [
-            "morador_responsavel"
+            "id", "morador_responsavel"
         ]
 
     morador_responsavel = serializers.CharField()

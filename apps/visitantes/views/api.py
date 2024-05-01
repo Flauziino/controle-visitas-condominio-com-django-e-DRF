@@ -110,3 +110,52 @@ class InformacoesVisitanteAPIView(MyAPIBaseView):
         }
 
         return Response(data)
+
+    def post(self, request, id):
+        visitante = self.get_visitante(id)
+        serializer_visitante = AutorizaVisitanteSerializer(
+            data=request.data,
+            instance=visitante
+        )
+
+        if serializer_visitante.is_valid():
+            serializer_visitante.save(
+                status="EM_VISITA",
+                horario_autorizacao=timezone.now()
+            )
+
+            messages.success(
+                request,
+                "Entrada de visitante autorizada com sucesso"
+            )
+
+            return Response({
+                'message': f'Visitante {visitante.nome_completo} autorizado'
+            }, status=status.HTTP_200_OK)
+
+        else:
+            return Response(
+                serializer_visitante.errors,
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+class FinalizaVisitaAPIView(MyAPIBaseView):
+    permission_classes = [IsAuthenticated,]
+    http_method_names = ['post',]
+
+    def post(self, request, id):
+        visitante = self.get_visitante(id)
+        visitante.status = "FINALIZADO"
+        visitante.horario_saida = timezone.now()
+
+        visitante.save()
+
+        messages.success(
+            request,
+            "Visita finalizada com sucesso"
+        )
+
+        return Response({
+            'message': f'Visita de {visitante.nome_completo} finalizada'
+        }, status=status.HTTP_200_OK)
