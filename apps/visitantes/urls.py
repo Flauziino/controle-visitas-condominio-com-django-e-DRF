@@ -43,7 +43,7 @@ urlpatterns = [
     path(
         'visitantes-api/<int:id>',
         api.InformacoesVisitanteAPIView.as_view(),
-        name='informacoes-visitante'
+        name='informacoes_visitante_api'
     ),
 
     path(
